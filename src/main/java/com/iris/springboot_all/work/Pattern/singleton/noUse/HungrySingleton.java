@@ -1,4 +1,4 @@
-package com.iris.springboot_all.work.Pattern.Singleton.noUse;
+package com.iris.springboot_all.work.Pattern.singleton.noUse;
 
 /**
  * 饿汉式单例
