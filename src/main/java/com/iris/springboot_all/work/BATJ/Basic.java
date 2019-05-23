@@ -2,6 +2,7 @@ package com.iris.springboot_all.work.BATJ;
 
 /**
  * 每天一个小知识点
+ * 后期存到数据库，方便刷题，分类，进行抽样生成试卷
  * @author iris
  * @date 2019/5/20
  */
@@ -14,5 +15,6 @@ public class Basic {
      * 那么finalize()究竟是做什么的呢？它最主要的用途是回收特殊渠道申请的内存。Java程序有垃圾回收器，所以一般情况下内存问题不用程序员操心。
      * 但有一种JNI(Java Native Interface)调用non-Java程序（C或C++），finalize()的工作就是回收这部分的内存。
      */
-    //
+    //事务  特性 ACID ;2事务隔离级别
+    // mysql引擎:innoDb引擎和myISAM引擎对比
 }
