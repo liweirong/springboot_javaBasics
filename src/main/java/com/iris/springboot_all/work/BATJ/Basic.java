@@ -3,6 +3,8 @@ package com.iris.springboot_all.work.BATJ;
 /**
  * 每天一个小知识点
  * 后期存到数据库，方便刷题，分类，进行抽样生成试卷
+ * 每个知识点后面提供字段进行存储父ID
+ *
  *
  * @author iris
  * @date 2019/5/20
