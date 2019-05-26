@@ -3,6 +3,7 @@ package com.iris.springboot_all.work.BATJ;
 /**
  * 每天一个小知识点
  * 后期存到数据库，方便刷题，分类，进行抽样生成试卷
+ *
  * @author iris
  * @date 2019/5/20
  */
@@ -16,5 +17,11 @@ public class Basic {
      * 但有一种JNI(Java Native Interface)调用non-Java程序（C或C++），finalize()的工作就是回收这部分的内存。
      */
     //事务  特性 ACID ;2事务隔离级别
+
     // mysql引擎:innoDb引擎和myISAM引擎对比
+
+    /**innodb锁机制：共享锁(S锁)、排他锁（X锁）  意向共享锁（IS锁），意向排他锁（IX锁）
+     *锁算法： 临键锁（next key）、间隙锁（gap锁） 、记录锁（record）
+     */
+    // undo log、 redo log
 }
