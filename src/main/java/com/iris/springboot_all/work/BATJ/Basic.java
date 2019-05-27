@@ -26,6 +26,9 @@ public class Basic {
 
     /**innodb锁机制：共享锁(S锁)、排他锁（X锁）  意向共享锁（IS锁），意向排他锁（IX锁）
      *锁算法： 临键锁（next key）、间隙锁（gap锁） 、记录锁（record）
+     *
+     * innodb中通过：mvcc + next key解决幻读
+     *
      */
-    // undo log、 redo log
+    // undo log（保证事务原子性）、 redo log（保证事务的持久性）
 }
