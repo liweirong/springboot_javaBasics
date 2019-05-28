@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 
 //反序列化时导致单例破坏
-public class SeriableSingleton implements Serializable {
+public class SerializableSingleton implements Serializable {
 
     //序列化就是说把内存中的状态通过转换成字节码的形式
     //从而转换一个IO流，写入到其他地方(可以是磁盘、网络IO)
@@ -22,20 +22,20 @@ public class SeriableSingleton implements Serializable {
     //通过IO流的读取，进而将读取的内容转换为Java对象
     //在转换过程中会重新创建对象new
 
-    private final static SeriableSingleton INSTANCE = new SeriableSingleton();
+    private final static SerializableSingleton INSTANCE = new SerializableSingleton();
 
-    private SeriableSingleton() {
+    private SerializableSingleton() {
     }
 
-    public static SeriableSingleton getInstance() {
+    public static SerializableSingleton getInstance() {
         return INSTANCE;
     }
 
     /**
      * 必须重写readResolve 防止序列化破坏
-     * FileInputStream fis = new FileInputStream("SeriableSingleton.obj");
+     * FileInputStream fis = new FileInputStream("SerializableSingleton.obj");
      * ObjectInputStream ois = new ObjectInputStream(fis);
-     * s1 = (SeriableSingleton)ois.readObject();
+     * s1 = (SerializableSingleton)ois.readObject();
      *
      *    if (obj != null &&
      *             handles.lookupException(passHandle) == null &&

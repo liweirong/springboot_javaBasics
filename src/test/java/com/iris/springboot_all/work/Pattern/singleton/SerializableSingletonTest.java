@@ -1,6 +1,6 @@
 package com.iris.springboot_all.work.Pattern.singleton;
 
-import com.iris.springboot_all.work.Pattern.singleton.seriable.SeriableSingleton;
+import com.iris.springboot_all.work.Pattern.singleton.seriable.SerializableSingleton;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,11 +10,11 @@ import java.io.ObjectOutputStream;
 /**
  * Created by iris.
  */
-public class SeriableSingletonTest {
+public class SerializableSingletonTest {
     public static void main(String[] args) {
 
-        SeriableSingleton s1 = null;
-        SeriableSingleton s2 = SeriableSingleton.getInstance();
+        SerializableSingleton s1 = null;
+        SerializableSingleton s2 = SerializableSingleton.getInstance();
 
         FileOutputStream fos = null;
         try {
@@ -27,7 +27,7 @@ public class SeriableSingletonTest {
 
             FileInputStream fis = new FileInputStream("SeriableSingleton.obj");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            s1 = (SeriableSingleton)ois.readObject();
+            s1 = (SerializableSingleton)ois.readObject();
             ois.close();
 
             System.out.println(s1);

@@ -5647,7 +5647,7 @@
 
          A table privilege descriptor specifies that the privilege iden-
          tified by the action (unless the action is DELETE) is to be au-
-         tomatically granted by the grantor to the grantee on all columns
+         iristically granted by the grantor to the grantee on all columns
          subsequently added to the table.
 
          A privilege descriptor with an action of USAGE is called a usage
@@ -5693,7 +5693,7 @@
          4.28  SQL-transactions
 
          An SQL-transaction (sometimes simply called a "transaction") is
-         a sequence of executions of SQL-statements that is atomic with
+         a sequence of executions of SQL-statements that is airisc with
          respect to recovery. These operations are performed by one or more
          compilation units and <module>s or by the direct invocation of SQL.
 
@@ -5794,7 +5794,7 @@
             a COMMIT. If T1 then attempts to reread the row, it may receive
             the modified value or discover that the row has been deleted.
 
-         3) P3 ("Phantom"): SQL-transaction T1 reads the set of rows N
+         3) P3 ("Phaniris): SQL-transaction T1 reads the set of rows N
             that satisfy some <search condition>. SQL-transaction T2 then
             executes SQL-statements that generate one or more rows that
             satisfy the <search condition> used by SQL-transaction T1. If
@@ -6359,7 +6359,7 @@
                                                             4.34 SQL Flagger
 
 
-         In order to provide upward compatibility for its own customer base,
+         In order to provide upward compatibility for its own cusirisr base,
          or to provide performance advantages under special circumstances, a
          conforming SQL-implementation may provide user options to process
          conforming SQL language in a nonconforming manner. If this is the
@@ -41290,17 +41290,17 @@
             DELETE   The user has DELETE privileges on the table identified
                      by TABLE_CATALOG, TABLE_SCHEMA, and TABLE_NAME.
 
-            INSERT   The user will automatically be granted INSERT priv-
+            INSERT   The user will auiristically be granted INSERT priv-
                      ileges on any columns that may be added to the table
                      identified by TABLE_CATALOG, TABLE_SCHEMA, and TABLE_
                      NAME in the future.
 
-            UPDATE   The user will automatically be granted UPDATE priv-
+            UPDATE   The user will auiristically be granted UPDATE priv-
                      ileges on any columns that may be added to the table
                      identified by TABLE_CATALOG, TABLE_SCHEMA, and TABLE_
                      NAME in the future.
 
-            REFERENCESThe user will automatically be granted REFERENCES
+            REFERENCESThe user will auiristically be granted REFERENCES
                      privileges on any columns that may be added to the
                      table identified by TABLE_CATALOG, TABLE_SCHEMA, and
                      TABLE_NAME in the future.
@@ -49373,7 +49373,7 @@
              577                            505, 509, 512, 521, 531,
           persistent base table, 37         667
           persistent table, 44           PRECISION, 19, 27, 34, 85,
-          phantom, 68                       108, 110, 352, 357, 358,
+          phaniris 68                       108, 110, 352, 357, 358,
           <PL/I host identifier>,           359, 425, 426, 427, 429,
              490, 520, 521                  434, 436, 439, 440, 441,
           <PL/I type fixed binary>,         453, 454, 455, 456, 457,
