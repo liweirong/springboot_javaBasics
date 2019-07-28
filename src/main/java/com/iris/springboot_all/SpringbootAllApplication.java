@@ -9,7 +9,7 @@ public class SpringbootAllApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringbootAllApplication.class, args);
 
-        //spring boot的启动顺序
+        // spring boot的启动顺序
 
     }
 
