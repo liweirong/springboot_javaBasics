@@ -26,18 +26,5 @@ public class oneController {
         return map;
     }
 
-    @RequestMapping(value = "/redis/{key}/{value}", method = RequestMethod.GET)
-    @ResponseBody
-    public void setValue(@PathVariable(name = "key") String key, @PathVariable(name = "value") String value) {
-        // 保存字符串
-        stringRedisTemplate.opsForValue().set(key, value);
-    }
 
-    @RequestMapping(value = "/redis/{key}", method = RequestMethod.GET)
-    @ResponseBody
-    public String getValue(@PathVariable(name = "key") String key) {
-        // 保存字符串
-        String s = stringRedisTemplate.opsForValue().get(key);
-        return s;
-    }
 }
