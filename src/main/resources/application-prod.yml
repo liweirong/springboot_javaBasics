@@ -22,7 +22,7 @@ spring:
 #    password : guest
 
 my :
-  name : lwr-dev
+  name : lwr-prod
   age : 26
-  uuid : dev-${random.uuid}
+  uuid : prod-${random.uuid}
   number : ${random.int(20)}
