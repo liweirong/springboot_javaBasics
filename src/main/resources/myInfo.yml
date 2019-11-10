@@ -1,0 +1,5 @@
+my :
+  name : lwr
+  age : 25
+  uuid : ${random.uuid}
+  number : ${random.int(20)}

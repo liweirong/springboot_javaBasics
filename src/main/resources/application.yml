@@ -1,22 +1,27 @@
-# ÈÈ²¿Êğ¿ª¹Ø£¬false¼´²»ÆôÓÃÈÈ²¿Êğ
 spring:
   devtools:
     restart:
-      enabled : true # Ö¸¶¨ÈÈ²¿ÊğµÄÄ¿Â¼
-      exclude : test # Ö¸¶¨Ä¿Â¼²»¸üĞÂ
+      enabled : true # æŒ‡å®šçƒ­éƒ¨ç½²çš„ç›®å½•
+      exclude : test # æŒ‡å®šç›®å½•ä¸æ›´æ–°
 
-  redis: #µ¥»úwindows redis ÔËĞĞ> redis-server.exe redis.windows.conf
-    #>redis-cli.exe -h 127.0.0.1 -p 6379
-    database: 0 # RedisÊı¾İ¿âË÷Òı£¨Ä¬ÈÏÎª0£©
-    host: 127.0.0.1 # Redis·şÎñÆ÷µØÖ·
-    port: 6379
-    password: lwr123123
-  #redis.timeout=3 ## Á¬½Ó³¬Ê±Ê±¼ä£¨ºÁÃë£©
-#spring.devtools.restart.additional-paths: src/main/java
+#  redis: #å•æœºwindows redis è¿è¡Œ> redis-server.exe redis.windows.conf
+#    #>redis-cli.exe -h 127.0.0.1 -p 6379
+#    database : 0 # Redisæ•°æ®åº“ç´¢å¼•ï¼ˆé»˜è®¤ä¸º0ï¼‰
+#    host : 127.0.0.1 # RedisæœåŠ¡å™¨åœ°å€
+#    port : 6379
+#    password: lwr123123
+#  #redis.timeout=3 ## è¿æ¥è¶…æ—¶æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰
+#  #spring.devtools.restart.additional-paths: src/main/java
+#
+#  #å¯¹äºrabbitMQçš„æ”¯æŒ
+#  rabbitmq :
+#    host : 127.0.0.1
+#    port : 5672
+#    username : guest
+#    password : guest
 
-#¶ÔÓÚrabbitMQµÄÖ§³Ö
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username : guest
-    password : guest
+my :
+  name : lwr
+  age : 25
+  uuid : ${random.uuid}
+  number : ${random.int(20)}
