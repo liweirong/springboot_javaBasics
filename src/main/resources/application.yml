@@ -3,8 +3,15 @@ spring:
     restart:
       enabled : true # 指定热部署的目录
       exclude : test # 指定目录不更新
-  profiles :
-    active : dev #指定加载配置文件类型（application-{profile}.yml文件）
+#  profiles :
+#    active : dev #指定加载配置文件类型（application-{profile}.yml文件）
+
+#actuator提供了13个接口
+#management:
+#  security:
+#    enabled: false
+#  port: 9091
+
 
 #  redis: #单机windows redis 运行> redis-server.exe redis.windows.conf
 #    #>redis-cli.exe -h 127.0.0.1 -p 6379
