@@ -1,3 +1,4 @@
+##test 测试环境配置
 ## 热部署开关，false即不启用热部署
 #spring:
 #  devtools:
