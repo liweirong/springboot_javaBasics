@@ -1,3 +1,12 @@
+server:
+  port: 8888
+
+##项目信息
+info:
+  name: springBoot-Clould
+  server:
+    port: ${server.port}
+
 spring:
   devtools:
     restart:
@@ -12,6 +21,10 @@ spring:
 #    enabled: false
 #  port: 9091
 
+management:
+  endpoint:
+    health:
+      show-details: always # 查看监控细节
 
 #  redis: #单机windows redis 运行> redis-server.exe redis.windows.conf
 #    #>redis-cli.exe -h 127.0.0.1 -p 6379
