@@ -1,7 +1,6 @@
 package com.iris.springboot_all.controller;
 
 import com.iris.springboot_all.model.MyInfo;
-import com.iris.springboot_all.rabbitMq.simple.provider.MyProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
