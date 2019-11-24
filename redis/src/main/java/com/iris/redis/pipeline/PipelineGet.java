@@ -26,7 +26,7 @@ public class PipelineGet {
                 //System.out.println(src);
             }
             System.out.println("直接get耗时："+(System.currentTimeMillis() - t1));
-        }).start();
+        },"getThread").start();
 
         new Thread(() -> {
             Jedis jedis = new Jedis("127.0.0.1", 6379);
@@ -43,6 +43,6 @@ public class PipelineGet {
                 //System.out.println(src);
             }
             System.out.println("Pipeline get耗时："+(System.currentTimeMillis() - t1));
-        }).start();
+        },"pipThread").start();
     }
 }

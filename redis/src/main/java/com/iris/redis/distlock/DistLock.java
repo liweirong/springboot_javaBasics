@@ -8,6 +8,11 @@ import java.util.Collections;
  * @Author: iris
  * @Date: 2019/9/27 23:00
  * @Description:
+ *
+ * 分布式锁的要求：
+ * 1/互斥
+ * 2/死锁 - 过期时间
+ * 3/只有自己持有才能释放
  */
 public class DistLock {
     private static final String LOCK_SUCCESS = "OK";

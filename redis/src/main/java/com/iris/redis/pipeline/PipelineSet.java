@@ -18,6 +18,6 @@ public class PipelineSet {
         }
         pipelined.syncAndReturnAll();
         long t2 = System.currentTimeMillis();
-        System.out.println("耗时："+(t2-t1)+"ms");
+        System.out.println("耗时："+(t2-t1)+"ms");// 1213ms
     }
 }
