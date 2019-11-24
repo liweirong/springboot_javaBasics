@@ -1,4 +1,4 @@
-package com.single;
+package com.redisson.single;
 
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;

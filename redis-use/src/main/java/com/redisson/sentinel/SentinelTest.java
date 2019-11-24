@@ -1,4 +1,4 @@
-package com.sentinel;
+package com.redisson.sentinel;
 
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;

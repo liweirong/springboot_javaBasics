@@ -1,4 +1,4 @@
-package com.lock;
+package com.redisson.lock;
 
 import org.redisson.Redisson;
 import org.redisson.api.RLock;

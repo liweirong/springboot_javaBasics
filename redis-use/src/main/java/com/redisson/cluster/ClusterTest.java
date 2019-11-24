@@ -1,4 +1,4 @@
-package com.cluster;
+package com.redisson.cluster;
 
 import org.redisson.Redisson;
 import org.redisson.api.RBucket;
