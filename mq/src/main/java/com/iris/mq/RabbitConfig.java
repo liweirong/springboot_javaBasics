@@ -1,8 +1,8 @@
 //package com.iris.springboot_all.rabbitMq;
 //
 //import org.springframework.amqp.core.Queue;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.iris.basics.annotation.Bean;
+//import org.springframework.context.iris.basics.annotation.Configuration;
 //
 ///**
 // * @author iris
