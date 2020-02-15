@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @Description:
  */
 public class Author implements Serializable {
+    private static final long serialVersionUID = 282134048488478070L;
     Integer authorId; // 作者ID
     String authorName; // 作者名称
 

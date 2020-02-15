@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @Description:
  */
 public class Blog implements Serializable{
+    private static final long serialVersionUID = 637370320359130028L;
     Integer bid; // 文章ID
     String name; // 文章标题
     Integer authorId; // 文章作者ID
