@@ -1,4 +1,5 @@
 package com.iris.interceptor;
+
 import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -10,12 +11,14 @@ import org.apache.ibatis.session.RowBounds;
 
 import java.lang.reflect.Field;
 import java.util.Properties;
+
 /**
+ * 自定义物理分页插件
  * @Author: iris
  * @Date: 2019/4/2 22:13
  * @Description:
  */
-@Intercepts({@Signature(type = Executor.class,method = "query",
+@Intercepts({@Signature(type = Executor.class, method = "query",
         args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})
 })
 public class MyPageInterceptor implements Interceptor {
@@ -46,7 +49,7 @@ public class MyPageInterceptor implements Interceptor {
         Field field = MappedStatement.class.getDeclaredField("sqlSource");
         field.setAccessible(true);
         field.set(ms, sqlSource);
-
+        System.out.println("将逻辑分页改为物理分页后的sql" + sql);
         // 执行被拦截方法
         return invocation.proceed();
     }

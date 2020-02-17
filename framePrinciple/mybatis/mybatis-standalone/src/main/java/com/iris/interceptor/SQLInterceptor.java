@@ -8,6 +8,7 @@ import org.apache.ibatis.session.ResultHandler;
 import java.sql.Statement;
 import java.util.Properties;
 /**
+ * 自定义sql 日志信息打应
  * @Author: iris
  * @Date: 2019/4/2 21:37
  * @Description:
