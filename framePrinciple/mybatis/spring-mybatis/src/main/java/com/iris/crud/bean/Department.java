@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(value = {"handler"})
 public class Department implements Serializable{
+    private static final long serialVersionUID = 3536935474429948496L;
     private Integer deptId;
     private String deptName;
 
