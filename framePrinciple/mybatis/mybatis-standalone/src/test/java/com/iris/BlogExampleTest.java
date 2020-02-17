@@ -39,6 +39,9 @@ public class BlogExampleTest {
             criteria.andBidEqualTo(1);
             List<Blog> list = mapper.selectByExample(example);
             System.out.println(list);
+
+            Blog blog = list.get(0);
+            mapper.updateByPrimaryKey(blog);
         } finally {
             session.close();
         }
