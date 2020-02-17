@@ -17,6 +17,8 @@ import java.util.Properties;
  * 一种是无参构造函数，一种是有参构造函数——第一个方法调用了第二个方法
  */
 public class GPObjectFactory extends DefaultObjectFactory {
+    private static final long serialVersionUID = 2341419459941333742L;
+
     @Override
     public Object create(Class type) {
         System.out.println("创建对象方法：" + type);
