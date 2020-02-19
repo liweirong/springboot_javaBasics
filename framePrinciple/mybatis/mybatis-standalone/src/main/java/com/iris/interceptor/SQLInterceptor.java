@@ -21,13 +21,13 @@ public class SQLInterceptor implements Interceptor {
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         BoundSql boundSql = statementHandler.getBoundSql();
         String sql = boundSql.getSql();
-        System.out.println("获取到SQL语句："+sql);
+        System.out.println("SQLInterceptor 获取到SQL语句："+sql);
 
         try {
             return invocation.proceed();
         }finally {
             long endTime = System.currentTimeMillis();
-            System.out.println("SQL执行耗时：" + (endTime-startTime) +"ms");
+            System.out.println("SQLInterceptor SQL执行耗时：" + (endTime-startTime) +"ms");
         }
 
     }

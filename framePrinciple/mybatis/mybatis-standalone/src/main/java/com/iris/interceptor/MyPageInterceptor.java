@@ -24,7 +24,7 @@ import java.util.Properties;
 public class MyPageInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        System.out.println("将逻辑分页改为物理分页");
+        System.out.println("MyPageInterceptor 将逻辑分页改为物理分页");
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0]; // MappedStatement
         BoundSql boundSql = ms.getBoundSql(args[1]); // Object parameter
@@ -49,7 +49,7 @@ public class MyPageInterceptor implements Interceptor {
         Field field = MappedStatement.class.getDeclaredField("sqlSource");
         field.setAccessible(true);
         field.set(ms, sqlSource);
-        System.out.println("将逻辑分页改为物理分页后的sql" + sql);
+        System.out.println("MyPageInterceptor 将逻辑分页改为物理分页后的sql" + sql);
         // 执行被拦截方法
         return invocation.proceed();
     }
