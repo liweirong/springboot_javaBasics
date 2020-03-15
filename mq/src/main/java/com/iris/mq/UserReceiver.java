@@ -1,7 +1,9 @@
 package com.iris.mq;
 
 import com.iris.mq.model.User;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
 
 /**
  * @author iris
@@ -9,7 +11,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
  */
 @RabbitListener(queues="userQueue")    //监听器监听指定的Queue
 public class UserReceiver {
-
 
     public void process1(User user) {    //用User作为参数
         System.out.println("Receive1:"+user);

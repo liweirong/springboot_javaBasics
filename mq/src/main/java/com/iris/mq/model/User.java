@@ -14,6 +14,12 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = -4495472493196332071L;
+
+    public User(String userId, String userName, String passWord){
+        setUserId(userId);
+        setUserName(userName);
+        setPassWord(passWord);
+    }
     @Getter
     @Setter
     private String userId;

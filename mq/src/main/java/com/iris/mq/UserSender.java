@@ -17,10 +17,10 @@ public class UserSender {
     /**
      * 传输对象需要实现Serializable接口
      */
-    public void send() {
-        User user = new User();
-        user.setUserName("username");
-        user.setPassWord("pwd");
+    public void send(User user) {
+//        User user = new User();
+//        user.setUserName("username");
+//        user.setPassWord("pwd");
         rabbitTemplate.convertAndSend("userQueue", user);
     }
 }
