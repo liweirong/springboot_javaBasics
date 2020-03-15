@@ -26,7 +26,7 @@ public class RabbitConfig {
     @Bean("firstQueue")
     public Queue getFirstQueue(){
         Map<String, Object> args = new HashMap<String, Object>();
-        args.put("x-message-ttl",6000);
+        args.put("x-message-ttl",6000); // 设置队列过期时间
         Queue queue = new Queue("FIRST_QUEUE", false, false, true, args);
         return queue;
     }
