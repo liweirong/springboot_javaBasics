@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Author: qingshan
+ * @Author: iris
  * @Date: 2019/8/14 16:43
- * @Description: 咕泡学院，只为更好的你
+ * @Description:
  */
 @Configuration
 public class TemplateConfig {

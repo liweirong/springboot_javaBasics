@@ -12,9 +12,9 @@ import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import java.net.URI;
 
 /**
- * @Author: qingshan
+ * @Author: iris
  * @Date: 2019/8/15 11:26
- * @Description: 咕泡学院，只为更好的你
+ * @Description:
  * 配置类的代码用不到，只用来演示
  */
 public class ContainerSender {

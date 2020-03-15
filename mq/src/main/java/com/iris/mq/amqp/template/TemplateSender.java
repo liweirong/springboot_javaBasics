@@ -6,9 +6,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @Author: qingshan
+ * @Author: iris
  * @Date: 2019/8/14 16:44
- * @Description: 咕泡学院，只为更好的你
+ * @Description:
  */
 @ComponentScan(basePackages = "com.gupaoedu.amqp.template")
 public class TemplateSender {
