@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+#logs
+logging:
+  file:
+    path: /var/eslog/
+  level:
+    root: INFO #root level
+
+spring:
+  data:
+    elasticsearch:
+      clusterName : elasticsearch
+      cluster-nodes : 127.0.0.1:9300
+      repositories:
+        enabled: false

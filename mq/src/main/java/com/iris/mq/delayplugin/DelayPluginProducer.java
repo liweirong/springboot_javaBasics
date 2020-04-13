@@ -1,6 +1,6 @@
 package com.iris.mq.delayplugin;
 
-import com.gupaoedu.dlx.ttl.DlxSender;
+import com.iris.mq.dlx.DlxSender;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
