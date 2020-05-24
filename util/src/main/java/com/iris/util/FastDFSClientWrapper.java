@@ -70,16 +70,18 @@ import java.util.logging.Logger;
          * @param fileUrl 文件访问地址
          * @return
          */
-        public void deleteFile(String fileUrl) {
+        public Boolean deleteFile(String fileUrl) {
             if (StringUtils.isEmpty(fileUrl)) {
-                return;
+                return false;
             }
             try {
                 StorePath storePath = StorePath.parseFromUrl(fileUrl);
                 storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
             } catch (FdfsUnsupportStorePathException e) {
                 e.printStackTrace();
+                return false;
             }
+            return true;
         }
 
 
