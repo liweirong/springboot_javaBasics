@@ -1,4 +1,4 @@
-package arithmetic;
+package leetcode;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,12 @@ class ListNode {
 public class 链表 {
 
     public static void main(String[] args) {
+        float a=1.3F;
+        float b= 1.2F+0.1F;
+        System.out.println(b);// 1.3000001
+        System.out.println(Math.abs(a - b) < 0.000001);
+
+
         ListNode listNode = new ListNode(1);
         listNode.next = new ListNode(2);
         listNode.next.next = new ListNode(3);
@@ -27,6 +33,7 @@ public class 链表 {
         printNode(listNode);
         ArrayList<Integer> result = new 链表().printListFromTailToHead(listNode);
         System.out.println(result);
+
 
     }
 
@@ -49,6 +56,26 @@ public class 链表 {
         }
         return list;
     }
+
+
+    /**
+     * leetcode反转链表 迭代、递归
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        return prev;
+    }
+
 
     /**
      * 就地反转链表 1 2 3 -> 3 2 1
