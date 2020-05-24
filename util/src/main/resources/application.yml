@@ -1,0 +1,15 @@
+
+fdfs:
+  soTimeout: 1500
+  connectTimeout: 600
+  thumbImage:
+    width: 150
+    height: 150
+  tracker-list: 192.168.171.12:22122
+  http:
+    anti_steal_token : true # 开启token
+    secret_key : 123456 # 服务器配置的secret key
+  web-server-url : http://192.168.171.12:48888/ # 通过nginx访问fastDFS的地址
+
+server:
+  port: 8080
