@@ -1,5 +1,6 @@
 package com.iris.util;
 
+import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -23,36 +25,42 @@ import java.util.logging.Logger;
  * @date 2020/5/24
  */
 
-    @Component
-    public class FastDFSClientWrapper {
+@Component
+public class FastDFSClientWrapper {
 
-        @Autowired
-        private FastFileStorageClient storageClient;
+    @Autowired
+    private FastFileStorageClient storageClient;
 
 
-        /**
-         * 上传文件
-         * @param file 文件对象
-         * @return 文件访问地址
-         * @throws IOException
-         */
-        public String uploadFile(MultipartFile file) throws IOException {
-            StorePath storePath = storageClient.uploadFile(file.getInputStream(),file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()),null);
-            return getResAccessUrl(storePath);
-        }
+    /**
+     * 上传文件
+     *
+     * @param file 文件对象
+     * @return 文件访问地址
+     * @throws IOException
+     */
+    public String uploadFile(MultipartFile file) throws IOException {
+        StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), FilenameUtils.getExtension(file.getOriginalFilename()), null);
+//        Set<MetaData> metadata = storageClient.getMetadata(storePath.getGroup(), storePath.getPath());
+//        for(MetaData nvp : metadata){
+//            System.out.println(nvp.getName() + ":" + nvp.getValue());
+//        }
+        return getResAccessUrl(storePath);
+    }
 
-        /**
-         * 将一段字符串生成一个文件上传
-         * @param content 文件内容
-         * @param fileExtension
-         * @return
-         */
-        public String uploadFile(String content, String fileExtension) {
-            byte[] buff = content.getBytes(Charset.forName("UTF-8"));
-            ByteArrayInputStream stream = new ByteArrayInputStream(buff);
-            StorePath storePath = storageClient.uploadFile(stream,buff.length, fileExtension,null);
-            return getResAccessUrl(storePath);
-        }
+    /**
+     * 将一段字符串生成一个文件上传
+     *
+     * @param content       文件内容
+     * @param fileExtension
+     * @return
+     */
+    public String uploadFile(String content, String fileExtension) {
+        byte[] buff = content.getBytes(Charset.forName("UTF-8"));
+        ByteArrayInputStream stream = new ByteArrayInputStream(buff);
+        StorePath storePath = storageClient.uploadFile(stream, buff.length, fileExtension, null);
+        return getResAccessUrl(storePath);
+    }
 
     private String getResAccessUrl(StorePath storePath) {
         String fileUrl =
@@ -60,31 +68,30 @@ import java.util.logging.Logger;
 //                + appConfig.getResHost()+ ":"
 //                + appConfig.getFdfsStoragePort() + "/"
 //                +
-                        storePath.getFullPath();
+                storePath.getFullPath();
         return fileUrl;
     }
     // 封装图片完整URL地址
 
-        /**
-         * 删除文件
-         * @param fileUrl 文件访问地址
-         * @return
-         */
-        public Boolean deleteFile(String fileUrl) {
-            if (StringUtils.isEmpty(fileUrl)) {
-                return false;
-            }
-            try {
-                StorePath storePath = StorePath.parseFromUrl(fileUrl);
-                storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
-            } catch (FdfsUnsupportStorePathException e) {
-                e.printStackTrace();
-                return false;
-            }
-            return true;
+    /**
+     * 删除文件
+     *
+     * @param fileUrl 文件访问地址
+     * @return
+     */
+    public Boolean deleteFile(String fileUrl) {
+        if (StringUtils.isEmpty(fileUrl)) {
+            return false;
         }
-
-
+        try {
+            StorePath storePath = StorePath.parseFromUrl(fileUrl);
+            storageClient.deleteFile(storePath.getGroup(), storePath.getPath());
+        } catch (FdfsUnsupportStorePathException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
 
     @Value("${fdfs.web-server-url}")
@@ -109,8 +116,29 @@ import java.util.logging.Logger;
         } catch (Exception e) {
             throw new Exception("FastDFS获取token异常");
         }
-
         return fastDfsUrl + fileUrl + "?token=" + token + "&ts=" + ts;
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param fileUrl
+     * @return
+     */
+    public byte[] download(String fileUrl) {
+        try {
+            StorePath storePath = StorePath.parseFromUrl(fileUrl);
+
+            byte[] b = storageClient.downloadFile(storePath.getGroup(), storePath.getPath(), null);
+            Set<MetaData> metadata = storageClient.getMetadata(storePath.getGroup(), storePath.getPath());
+            for(MetaData nvp : metadata){
+                System.out.println(nvp.getName() + ":" + nvp.getValue());
+            }
+            return b;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
