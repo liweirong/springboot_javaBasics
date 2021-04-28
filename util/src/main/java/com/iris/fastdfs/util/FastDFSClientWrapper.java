@@ -1,13 +1,11 @@
-package com.iris.util;
+package com.iris.fastdfs.util;
 
 import com.github.tobato.fastdfs.domain.fdfs.MetaData;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.exception.FdfsUnsupportStorePathException;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
-import com.sun.deploy.association.utility.AppConstants;
 import org.apache.commons.io.FilenameUtils;
 import org.csource.fastdfs.ProtoCommon;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -18,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * @author iris

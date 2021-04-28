@@ -1,4 +1,4 @@
-package com.iris.util;
+package com.iris.fastdfs.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
