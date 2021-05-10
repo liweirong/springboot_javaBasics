@@ -339,12 +339,13 @@ public class HttpClientUtils {
     /**
      * 生产环境账号
      */
-    private static String appid = "a22704a7c855471eb782b8ee3bacebc7";
+    public static String appid = "a22704a7c855471eb782b8ee3bacebc7";
     private static String secret = "9ba1465075e34cdb80d945f5d6f5b38a";
     private static String masterKey = "77a34f924ad54453a3d34c5a14b3c9fa";
     private static String categoryId = "998c6c1be5374bb18b8a967e90b5af52";
     private static String deviceUUID = "427444ca51ea5cc9222fa04aa28a2b00";
     private static String mac = "04:78:63:D7:1F:A1".replaceAll(":", "");
+    private static String mac2 = "B0:F8:93:70:E0:92".replaceAll(":", "");
 
     /**
      * appid: 9262b5c5381b425ab50023d1db1e8f13
