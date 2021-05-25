@@ -346,7 +346,8 @@ public class HttpClientUtils {
     private static String deviceUUID = "427444ca51ea5cc9222fa04aa28a2b00";
     private static String mac = "04:78:63:D7:1F:A1".replaceAll(":", "");
     private static String mac2 = "B0:F8:93:70:E0:92".replaceAll(":", "");
-
+    // 1602室 B0F89370F237
+    // 7栋1601室。B0F89370FA6A
     /**
      * appid: 9262b5c5381b425ab50023d1db1e8f13
      * secret: 0dfdf065d17844f6b51720385c7c8167

@@ -296,7 +296,8 @@ public class AesUtils {
     }
 
     public static void main(String[] args) {
-
+        System.out.println(encrypt("419002","09c92b04cc4eab82cdbcdc70e9394e39"));
+        System.out.println(decrypt("E1CD5ED24DF67AF10511E36D816149C1","09c92b04cc4eab82cdbcdc70e9394e39"));
 
     }
 }
