@@ -8,10 +8,10 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.example.util</groupId>
-    <artifactId>use-util</artifactId>
+    <groupId>com.iris.util</groupId>
+    <artifactId>p6</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>use-util</name>
+    <name>p6</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -19,20 +19,7 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

@@ -1,25 +1,18 @@
 server:
   port: 8000
-
-rabbitmq :
-  host : 127.0.0.1
-  port : 5672
-  username : guest
-  password : guest
-
 rocketmq:
   producer:
     isOnOff: on #该应用是否启用生产者
-    groupName: hmop
+    groupName: group1
     namesrvAddr: 127.0.0.1:9876
     maxMessageSize: 4096
     sendMsgTimeout: 30000
     retryTimesWhenSendFailed: 2
   consumer:
     isOnOff: on #该应用是否启用消费者
-    groupName: hmop
+    groupName: group1
     namesrvAddr: 127.0.0.1:9876
-    topics: test_topic~*;
+    topics: lwr_topic~*;
     consumeThreadMin: 20
     consumeThreadMax: 64
     consumeMessageBatchMaxSize: 1

@@ -1,6 +1,6 @@
 package lock;
 
-import org.openjdk.jol.info.ClassLayout;
+//import org.openjdk.jol.info.ClassLayout;
 
 /**
  * @author iris
@@ -9,10 +9,10 @@ import org.openjdk.jol.info.ClassLayout;
 public class LockDemo {
     public static void main(String[] args) {
         LockDemo lockDemo = new LockDemo();
-        System.out.println(ClassLayout.parseInstance(lockDemo).toPrintable());
-        System.out.println("----- -XX:BiasedLockingStartupDelay=0  --");
-        synchronized(lockDemo){
-            System.out.println(ClassLayout.parseInstance(lockDemo).toPrintable());
-        }
+//        System.out.println(ClassLayout.parseInstance(lockDemo).toPrintable());
+//        System.out.println("----- -XX:BiasedLockingStartupDelay=0  --");
+//        synchronized(lockDemo){
+//            System.out.println(ClassLayout.parseInstance(lockDemo).toPrintable());
+//        }
     }
 }
