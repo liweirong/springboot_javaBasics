@@ -21,7 +21,15 @@ public class CGLIBProxy {
         CGLIBProxyBean cglbProxyBean = new CGLIBProxyBean();
         IStudy study = cglbProxyBean.getInstance(AloneStudy.class);
         study.learn();
+
+        // 如果被代理类被final关键字所修饰，那么抱歉会失败
+        // Exception in thread "main" java.lang.IllegalArgumentException: Cannot subclass final class svip_homework.design.proxy.TestFinalClass
+        // cglbProxyBean.getInstance(TestFinalClass.class);
     }
+
+}
+
+final class TestFinalClass {
 
 }
 
