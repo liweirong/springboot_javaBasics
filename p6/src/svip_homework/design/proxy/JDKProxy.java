@@ -13,7 +13,7 @@ import java.lang.reflect.Proxy;
  */
 public class JDKProxy {
     public static void main(String[] args) {
-        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         new JDKProxyBean().getInstance(new AloneStudy()).learn();
     }
 }
