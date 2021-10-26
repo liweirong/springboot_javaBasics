@@ -1,0 +1,13 @@
+今日作业（无需手敲代码，代码要debug一遍）
+1. 梳理手写spring启动容器的过程，并画出流程图。
+https://www.processon.com/diagraming/616cdb0563768906a3767c46
+2. 描述spring的启动流程（语音作业）
+
+ClassPathXmlApplicationContext factory = new ClassPathXmlApplicationContext("beans.xml");
+
+spring的启动是建筑在servlet容器之上的，所有web工程的初始位置就是web.xml,它配置了servlet的上下文（context）和监听器（Listener）;
+web.xml中会提供有contextLoaderListener。在web容器启动时，会触发容器初始化事件
+
+
+
+

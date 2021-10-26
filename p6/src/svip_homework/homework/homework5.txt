@@ -1,0 +1,86 @@
+语音作业
+1. 你使用过spring中的哪些注解，它们的作用是什么？
+2. 在Spring的生命周期当中又使用到了哪些注解？
+3. 把bean注入到spring的容器中的方式有哪些？
+
+1
+作用在类上的：@Server @Mapper @Controller @Component @import  @ComponentScan @Condition条件装配
+作用在成员属性上的：@Autowired @Resource @Value
+
+@Configuration
+@Transactional 作用在方法上启动事务
+
+2 在Spring的生命周期当中又使用到了哪些注解？
+首先我们理解的spring是一个框架，就是会尽可能考虑所有情况
+首先通过
+@Configuration
+@ComponentScan 去扫描待注入类的包
+
+@Conditional 条件注入
+@Bean+ @Scope("singleton") 注入
+@Import(XXX.Class)
+
+@Lazy 延迟加载
+
+bean的生命周期
+@PostConstruct  对象创建并赋值之后调用
+@PreDestroy 当bean从IOC容器移除前调用
+
+
+@Value
+
+我们可以在bean的构造方法编写构造器的逻辑，然后到bean的初始化方法，
+在bean的初始化前后还有后置处理器的前后拦截方法，
+最后又bean的销毁方法，这就是spring为我们提供的bean控制的所有方法。
+
+3
+给IoC中注册Bean的方式
+1、@Configuration + @Bean
+2、@ComponentScan + @Component   包扫描默认是扫描（@Controller、@Service、@Repository、@Component）
+3、@Import 快速给容器导入组件Bean
+    a. @Import 直接传参导入
+    b. ImportSelector 自定义导入规则
+    c.ImportBeanDefinitionRegistrar ,使用BeanDefinitionRegistry可以手动注入到IoC容器中
+4、使用FactoryBean接口 重写两个方法即可
+    a、FactoryBean 负责将Bean注入到容器的Bean
+    b、BeanFactory 从IoC中获得Bean对象
+
+
+
+参考答案
+
+
+1. 你使用过spring中的哪些注解，它们的作用是什么？
+@Controller 作用于控制层
+@Service 作用于业务层
+@Repository 作用于dao层
+@Component 属于spring的最顶层注解，只要标识了这个注解@Component，都能被spring识别
+@Configuration 把我们的类变为配置类
+@Bean 注入bean到容器中
+@Scope("prototype")多实例，IOC容器启动创建的时候，并不会创建对象放在容器在容器当中，当你需要的时候，需要从容器当中取该对象的时候，就会创建。
+@Scope("singleton")单实例 IOC容器启动的时候就会调用方法创建对象，以后每次获取都是从容器当中拿同一个对象（map当中）。
+@Scope("request")同一个请求创建一个实例
+@Scope("session")同一个session创建一个实例
+@Lazy 延迟初始化
+@Conditional(WinCondition.class) 条件主键，里面的类实现Condition，然后实现matches方法，返回的boolean值，如果为true,则执行该方法
+@Import 导入外部资源
+@PostConstruct 构造器之后执行
+@PreDestroy 容器销毁之前执行
+
+在Spring的生命周期当中又使用到了哪些注解？
+2. 首先spring启动容器，会去扫描相应的包，在扫描包的时候，会找到@Componet，@controller,@Service等这样有注解标识的类，得到他们的全名称
+3. 然后开始去实例化这些类，在实例化的过程中会判断是否用到了@Lazy，这样的注解，判断是否实例化，也会判断@Scope("singleton")是否是单例，判断是否有Condition这样的注解等，如果是，则去实例化
+4. 然后再去属性注入，属性注入会判断属性有没有加@Autowired，@Resource注解，如果有则进行DI（也就是属性注入）操作
+5. 然后在去初始化，在初始化的过程中，会判断@Bean注解中有没有设置init-method的方法，如果有则要先执行init方法，完成bean的初始化
+6. 最后就是销毁
+7. 把bean注入到spring的容器中的方式有哪些？
+
+给IoC中注册Bean的方式
+1. @Bean 直接导入单个类
+2. @ComponentScan 包扫描默认是扫描（@Controller、@Service、@Repository、@Component）
+3. @Import 快速给容器导入组件Bean
+4. @Import 直接传参导入
+5. ImportSelector 自定义导入规则 	c.ImportBeanDefinitionRegistrar ,使用BeanDefinitionRegistry可以手动注入到IoC容器中
+6. FactoryBean 把需要注入的对象封装为FactoryBean
+7. FactoryBean 负责将Bean注入到容器的Bean
+b、BeanFactory 从IoC中获得Bean对象

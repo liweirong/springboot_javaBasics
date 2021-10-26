@@ -1,0 +1,30 @@
+今日学习内容
+Mybatis的使用以及原理
+作业
+1 Mapper只有接口，那实现类是怎么生成的？MyBatis怎么通过接口的方法就能找到需要执行的sql语句？（语音作业）
+2 什么是Mybatis的一级、二级缓存，怎么实现的？会有什么问题？怎么解决？（语音作业）
+
+解答
+一 在初始化阶段
+会读取mybatis的配置 解析所有标签，比如创建Configuration对象对应<configuration> 标签
+
+解析 Mapper.xml，总体上做了两件事情 ，注册了接口、解析sql，
+1 <mappers>得到mapper的地址  一个namespace 对应一个 MapperProxyFactory,存入mapperRegistry ：底层是knownMappers.put(type, new MapperProxyFactory<>(type)) - 存放的是mapper接口类型，和对应的工厂类的关系; 后面会根据MapperProxyFactory得到代理对象
+2  注册接口后，开始解析所有方法上的注解，例如 @Select把sql标签都封装成一个个的statement,然后我们再去用key（namespace+执行语句的id)  存起来保证唯一性 MappedStatement， Map<String, MappedStatement>  mappedStatements ；重复就报错
+mappedStatements.put(ms.getId(), ms);
+存入configuration mappedStatements就是我们Mapper里面的一个sql语句标签对应一个MappedStatement   ；
+
+
+在执行时，通过调用openSession得到sqlSession  ，首先
+1 获取事务，创建事务工厂
+2 根据事务工厂和默认执行器创建执行器（如果开启二级缓存则会返回cacheExecute）
+
+调用方法的时候
+先从knownMappers里拿到当前namespace的工厂，使用JDK动态代理创建接口的代理类，MapperProxy执行invoke
+根据方法+namespace拿到存好的MappedStatement，再由执行器进行调用 返回结果集
+
+二
+一级缓存默认开始的，无法关闭
+二级缓存需要在一级缓存的基础上在xml文件里面进行配置开启
+
+问题：分布式的情况会导致缓存不一致，可以通过缓存到redis解决但是实际上redis一般都会在db之前做，所以实际生产都是关掉一二级缓存
