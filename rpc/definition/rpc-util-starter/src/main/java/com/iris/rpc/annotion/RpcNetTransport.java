@@ -19,11 +19,11 @@ public class RpcNetTransport {
     /**
      * socket发送信息
      *
-     * @param rpcRequest
-     * @return
+     * @param rpcRequest rpcRequest
+     * @return Object
      */
     public Object send(MyRpcRequest rpcRequest) {
-        Socket socket = null;
+        Socket socket;
         try {
             socket = new Socket(host, port);
         } catch (IOException e) {

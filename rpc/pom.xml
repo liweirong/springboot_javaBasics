@@ -6,6 +6,7 @@
         <module>definition/rpc-client</module>
         <module>definition/rpc-server</module>
         <module>definition/rpc-api</module>
+        <module>definition/rpc-util-starter</module>
     </modules>
 
     <modelVersion>4.0.0</modelVersion>
