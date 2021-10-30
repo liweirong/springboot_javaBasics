@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.iris.rpc.annotion.ReferenceInvokeProxy,\
+  com.iris.rpc.annotion.RemoteInvocationHandler,\
+  com.iris.rpc.annotion.RpcNetTransport

@@ -1,4 +1,4 @@
-package com.iris.rcp.server;
+package com.iris.rpc.server;
 
 
 /**

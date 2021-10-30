@@ -1,6 +1,6 @@
-package com.iris.rcp.annotion;
+package com.iris.rpc.annotion;
 
-import com.iris.rcp.util.MyRpcRequest;
+import com.iris.rpc.util.MyRpcRequest;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.lang.reflect.InvocationHandler;
@@ -20,7 +20,7 @@ public class RemoteInvocationHandler implements InvocationHandler {
 
 
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    public Object invoke(Object proxy, Method method, Object[] args) {
         RpcNetTransport rpcNetTransport = new RpcNetTransport(host, port);
         MyRpcRequest rpcRequest = new MyRpcRequest();
         rpcRequest.setClassName(method.getDeclaringClass().getName());

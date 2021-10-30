@@ -1,4 +1,4 @@
-package com.iris.rcp.util;
+package com.iris.rpc.util;
 
 
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class MyRpcRequest implements Serializable {
 
-    private static final long serialVersionUID = -1328294104816361382L;
+    private static final long serialVersionUID = -1;
     private String className;
 
     private String methodName;

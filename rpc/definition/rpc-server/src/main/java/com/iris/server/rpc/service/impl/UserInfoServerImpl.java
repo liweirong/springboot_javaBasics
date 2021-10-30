@@ -1,6 +1,6 @@
 package com.iris.server.rpc.service.impl;
 
-import com.iris.rcp.server.IUserInfoServer;
+import com.iris.rpc.server.IUserInfoServer;
 import com.iris.server.rpc.annotion.MyRemoteServer;
 import lombok.extern.slf4j.Slf4j;
 

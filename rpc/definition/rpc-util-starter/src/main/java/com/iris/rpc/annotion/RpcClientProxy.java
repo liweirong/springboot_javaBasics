@@ -1,4 +1,4 @@
-package com.iris.rcp.annotion;
+package com.iris.rpc.annotion;
 
 import java.lang.reflect.Proxy;
 

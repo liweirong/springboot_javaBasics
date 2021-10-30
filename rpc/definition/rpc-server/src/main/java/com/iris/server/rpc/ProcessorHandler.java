@@ -1,6 +1,6 @@
 package com.iris.server.rpc;
 
-import com.iris.rcp.util.MyRpcRequest;
+import com.iris.rpc.util.MyRpcRequest;
 import com.iris.server.rpc.annotion.Mediator;
 import lombok.extern.slf4j.Slf4j;
 

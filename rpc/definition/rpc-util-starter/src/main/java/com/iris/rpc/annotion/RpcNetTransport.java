@@ -1,6 +1,6 @@
-package com.iris.rcp.annotion;
+package com.iris.rpc.annotion;
 
-import com.iris.rcp.util.MyRpcRequest;
+import com.iris.rpc.util.MyRpcRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 

@@ -1,7 +1,7 @@
 package com.iris.client.rpc.controller;
 
-import com.iris.rcp.annotion.MyRemoteServer;
-import com.iris.rcp.server.IUserInfoServer;
+import com.iris.rpc.annotion.MyRemoteServer;
+import com.iris.rpc.server.IUserInfoServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
