@@ -1,4 +1,4 @@
-package svip_homework.d_rpc.netty;
+package svip_homework.c_rpc.netty;
 
 import java.nio.channels.SocketChannel;
 

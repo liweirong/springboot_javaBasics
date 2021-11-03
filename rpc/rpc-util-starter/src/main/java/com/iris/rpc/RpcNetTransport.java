@@ -23,7 +23,7 @@ public class RpcNetTransport {
 
         try (Socket socket = new Socket(host, port);
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
         ) {
 
             objectOutputStream.writeObject(rpcRequest);

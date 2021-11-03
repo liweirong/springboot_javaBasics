@@ -1,8 +1,7 @@
-package svip_homework.d_rpc.nio;
+package svip_homework.c_rpc.nio;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
