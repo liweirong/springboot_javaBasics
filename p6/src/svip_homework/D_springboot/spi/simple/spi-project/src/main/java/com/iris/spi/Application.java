@@ -8,6 +8,7 @@ import sun.misc.Service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.ServiceLoader;
 
 /**
@@ -32,10 +33,11 @@ public class Application {
             System.out.println("1 " + ser.listAllCompanyInfo());
         }
         System.out.println("--------------------------------");
-        Iterator<SPIService> iterator = load.iterator();
-        while (iterator.hasNext()) {
-            SPIService ser = iterator.next();
-            System.out.println("2 " + ser.listAllCompanyInfo());
+        for (SPIService ser : load) {
+            System.out.println(ser.getClass().getName());
+            if (Objects.equals(ser.getClass().getName(), "com.iris.spi.SpiServiceImpl")) {
+                System.out.println("2 " + ser.listAllCompanyInfo());
+            }
         }
     }
 }
