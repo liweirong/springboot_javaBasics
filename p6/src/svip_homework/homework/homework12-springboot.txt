@@ -1,7 +1,8 @@
 什么是springboot条件装配？
 请写一个自动装配实例
 
+自动装配是SpringBoot四个主要特性其中一个，条件装配就是自动装配的一种实现，条件装配的存在让装配更智能
 
-
-@Conditional条件装配:在满足某种条件或者不满足某种条件创建组件等方法 可以使用在类前面
-注解的类只有在放在容器中才会生效
+条件装配是根据实现了Conditional接口的matches方法返回值true/false来判断该bean是否注入到spring容器中
+具体项目中有已有的注解可用：ConditionalOnBean、ConditionalOnMissingBean、ConditionalOnProperty等按照条件进行装配
+值得注意的是注解的类只有在放在容器中才会生效
