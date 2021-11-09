@@ -1,4 +1,4 @@
-package svip_homework.c_rpc.nio;
+package svip_homework.d_rpc.nio;
 
 import lombok.extern.slf4j.Slf4j;
 
