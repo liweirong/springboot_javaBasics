@@ -33,6 +33,7 @@ public class ConcurrentHashMapDemo {
 
         concurrentHashMap.put("iris2", 1);
         concurrentHashMap.get("iris2");
+        concurrentHashMap.remove("idis");
         System.out.println("concurrentHashMap:" + concurrentHashMap);
 
 
