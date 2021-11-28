@@ -1,5 +1,7 @@
 package svip_homework.F_thread;
 
+import sun.misc.Contended;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
@@ -42,5 +44,8 @@ public class ConcurrentHashMapDemo {
             concurrentHashMap.merge(v, 5, Integer::sum);
         });
         System.out.println("merge后：" + concurrentHashMap);
+        System.out.println("merge后：" + concurrentHashMap.size());
+
+//        @Contended 注解 解决伪共享的问题
     }
 }

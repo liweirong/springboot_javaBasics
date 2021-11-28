@@ -36,11 +36,12 @@ public class ThreadPoolDemo {
         //        RejectedExecutionHandler handler
 
 
-        ExecutorService executorService = new ThreadPoolExecutor(2, 3,
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 3,
                 10, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(3),
                 new ExecJavaTemplate());
-
+        // 允许核心线程数超时
+        executorService.allowCoreThreadTimeOut(true);
         for (int i = 0; i < 10; i++) {
             executorService.execute(new Thread(() -> {
                 try {
