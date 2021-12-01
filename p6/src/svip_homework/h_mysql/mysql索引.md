@@ -1,3 +1,7 @@
+DDL(Data Definition Language) ALTER 、CREATE
+DML(Data Manipulation Language) SELECT、 INSERT
+DCL（Data Control Language） 数据控制语言 COMMIT
+
 索引的结构
 B+树
 
@@ -40,3 +44,5 @@ mysql> EXPLAIN sql;
  Extra: Using where; Using index
 1 row in set, 1 warning (0.00 sec)
 ```
+sql调优：
+    
