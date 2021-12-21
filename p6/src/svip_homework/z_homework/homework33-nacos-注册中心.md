@@ -1,0 +1,17 @@
+1 请用Nacos做个注册中心demo！<br>
+2 请你说下Nacos作为注册中心，主要的实现流程（语音作业）
+
+```text
+
+服务注册
+nacos的discovery包里的spring.factories自动装配了NacosServiceRegistryAutoConfiguration.class
+这个类注入了NacosAutoServiceRegistration，NacosAutoServiceRegistration类继承了AbstractAutoServiceRegistration
+AbstractAutoServiceRegistration实现了ApplicationListener事件，最终会调用onApplicationEvent()
+
+临时节点、持久化节点
+Nacos服务端在15秒内如果没收到客户端的心跳请求，会将该实例设置为不健康，在30秒内没收到心跳，会将这个临时实例摘除。永久实例不会摘除
+默认都是临时节点
+
+服务发现
+NacosServerList类中
+```
