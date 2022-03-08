@@ -1,6 +1,7 @@
 package com.iris.mq.rocketmq.config;
 
 
+import com.iris.mq.rocketmq.config.transcation.TransactionConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -26,7 +27,7 @@ public class RocketMQConfig {
     private RocketMqConsumerProperties rocketMqConsumerProperties;
 
     @Resource
-    private RocketMQConsumeMsgListenerProcessor rocketMQConsumeMsgListenerProcessor;
+    private TransactionConsumer transactionConsumer;
 
     /***
      * 生产者
@@ -88,7 +89,7 @@ public class RocketMQConfig {
         consumer.setConsumeThreadMin(rocketMqConsumerProperties.getConsumeThreadMin());
         consumer.setConsumeThreadMax(rocketMqConsumerProperties.getConsumeThreadMax());
         //消息消费处理类
-        consumer.registerMessageListener(rocketMQConsumeMsgListenerProcessor);
+        consumer.registerMessageListener(transactionConsumer);
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费
          * 如果非第一次启动，那么按照上次消费的位置继续消费

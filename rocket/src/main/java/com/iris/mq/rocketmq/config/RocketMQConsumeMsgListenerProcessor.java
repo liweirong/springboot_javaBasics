@@ -1,12 +1,22 @@
 package com.iris.mq.rocketmq.config;
 
+import cn.hutool.core.lang.UUID;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.iris.mq.rocketmq.entiry.Order;
+import com.iris.mq.rocketmq.entiry.Points;
+import com.iris.mq.rocketmq.mapper.PointsMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
+import org.apache.rocketmq.spring.core.RocketMQListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -16,33 +26,27 @@ import java.util.List;
  */
 @Component
 @Slf4j
-public class RocketMQConsumeMsgListenerProcessor implements MessageListenerConcurrently {
+@RocketMQMessageListener(topic = "lwr_topic", consumerGroup = "order_trans_group")
+public class RocketMQConsumeMsgListenerProcessor implements RocketMQListener<Order> {
+
+    @Autowired
+    private PointsMapper pointsMapper;
 
     @Override
-    public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
-        if (CollectionUtils.isEmpty(msgs)) {
+    public void onMessage(Order order) {
+        if (order == null) {
             log.info("接受到的消息为空，不处理，直接返回成功");
-            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            return;
         }
-        MessageExt messageExt = msgs.get(0);
-        log.info("接受到的消息为：" + messageExt.toString());
-        if ("你的Topic".equals(messageExt.getTopic())) {
-            if ("你的Tag".equals(messageExt.getTags())) {
-                //TODO 判断该消息是否重复消费（RocketMQ不保证消息不重复，如果你的业务需要保证严格的不重复消息，需要你自己在业务端去重）
-                //TODO 获取该消息重试次数
-                int reconsume = messageExt.getReconsumeTimes();
-                String topic = messageExt.getTopic();
-                String tags = messageExt.getTags();
-                String body = messageExt.toString();
-                log.info("MQ消息topic={}, tags={}, 消息内容={}", topic, tags, body);
-                if (reconsume == 3) {//消息已经重试了3次，如果不需要再次消费，则返回成功
-                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-                }
-                //TODO 处理对应的业务逻辑
-            }
-        }
-        // 如果没有return success ，consumer会重新消费该消息，直到return success
-        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+        log.info("接受到的消息为：{}", order);
+        Points points = new Points();
+        points.setId(UUID.randomUUID().toString());
+        points.setOrderNo(order.getOrderNo());
+        points.setPoints(1);
+        pointsMapper.insert(points);
+        log.info("更新积分:{}", points);
+        //TODO 判断该消息是否重复消费（RocketMQ不保证消息不重复，如果你的业务需要保证严格的不重复消息，需要你自己在业务端去重）
+        //TODO 获取该消息重试次数
+        //TODO 处理对应的业务逻辑
     }
-
 }

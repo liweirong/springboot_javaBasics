@@ -1,5 +1,7 @@
 package com.iris.mq.rocketmq.controller;
 
+import com.iris.mq.rocketmq.entiry.Order;
+import com.iris.mq.rocketmq.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,7 @@ import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +31,8 @@ public class RocketController {
      */
     @Autowired
     private DefaultMQProducer defaultMQProducer;
+    @Autowired
+    private OrderService orderService;
 
     @ApiOperation("生产消息")
     @PostMapping("sendMessage")
@@ -50,5 +55,11 @@ public class RocketController {
         if (sendResult != null) {
             log.info("消息 [{}] 发送响应信息：{}", sendMsg, sendResult.toString());
         }
+    }
+
+    @ApiOperation("事务回退")
+    @PostMapping("createOrder")
+    public void createOrder(@RequestBody Order order) throws MQClientException {
+        orderService.createOrder(order);
     }
 }

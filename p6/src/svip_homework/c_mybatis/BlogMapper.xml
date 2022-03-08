@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="svip_homework.c_mybatis.BlogMapper">
+    <!-- 声明这个namespace使用二级缓存 -->
+    <!--  <cache/>-->
+
+    <!-- 使用Redis作为二级缓存 -->
+    <!--  <cache type="org.mybatis.caches.redis.RedisCache"
+             eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+    <!--redis 中存储的形式
+    127.0.0.1:6379> Hkeys "com.iris.mapper.BlogMapper"
+    1) "592833712:2904062449:com.iris.mapper.BlogMapper.selectByExample:0:2147483647:select\n         \n        'true' as QUERYID,\n         \n        bid, name, author_id\n     \n        from blog\n         \n             \n         WHERE (  bid = ? ):1:development"
+    -->
+
+    <cache type="org.apache.ibatis.cache.impl.PerpetualCache"
+           size="1024"
+           eviction="LRU"
+           flushInterval="120000"
+           readOnly="false"/>
+
+
+    <select id="selectA" resultType="java.lang.String" useCache="true">
+        select 1;
+    </select>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+</mapper>
