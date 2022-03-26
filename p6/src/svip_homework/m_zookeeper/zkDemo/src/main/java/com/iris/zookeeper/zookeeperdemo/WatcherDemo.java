@@ -10,7 +10,7 @@ public class WatcherDemo implements Watcher {
     private static Stat stat = new Stat();
     static {
         try {
-            zooKeeper = new ZooKeeper("192.168.8.129:2181", 10000,new WatcherDemo());
+            zooKeeper = new ZooKeeper("localhost:2181", 10000,new WatcherDemo());
         } catch (IOException e) {
             e.printStackTrace();
         }

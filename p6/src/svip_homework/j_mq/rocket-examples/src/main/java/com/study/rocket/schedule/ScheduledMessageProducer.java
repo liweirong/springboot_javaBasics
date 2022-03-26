@@ -10,6 +10,7 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.apache.rocketmq.remoting.exception.RemotingException;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class ScheduledMessageProducer {
 
     public static final String NAME_SERVER_ADDR = "localhost:9876";
-    public static void main(String[] args) throws MQClientException, InterruptedException, RemotingException, MQBrokerException, UnsupportedEncodingException {
+    public static void main(String[] args) throws MQClientException, InterruptedException, RemotingException, MQBrokerException, UnsupportedEncodingException, ParseException {
         // 1. 创建生产者对象
         DefaultMQProducer producer = new DefaultMQProducer("GROUP_TEST");
 

@@ -16,7 +16,7 @@ public class ClusterProducer {
         DefaultMQProducer producer = new DefaultMQProducer("GROUP_TEST");
 
         // 2. 设置NameServer的地址，如果设置了环境变量NAMESRV_ADDR，可以省略此步
-        producer.setNamesrvAddr("10.10.1.31:9876;10.10.1.32:9876");
+        producer.setNamesrvAddr("localhost:9876");
 
         // 3. 启动生产者
         producer.start();

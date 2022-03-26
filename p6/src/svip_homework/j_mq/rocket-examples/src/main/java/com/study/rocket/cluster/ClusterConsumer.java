@@ -17,7 +17,7 @@ public class ClusterConsumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("GROUP_TEST");
 
         // 2. 设置NameServer的地址，如果设置了环境变量NAMESRV_ADDR，可以省略此步
-        consumer.setNamesrvAddr("10.10.1.31:9876;10.10.1.32:9876");
+        consumer.setNamesrvAddr("localhost:9876");
 
         // 3. 订阅对应的主题和Tag
         consumer.subscribe("TopicTest", "*");
