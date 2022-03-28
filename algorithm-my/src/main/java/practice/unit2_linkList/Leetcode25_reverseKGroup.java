@@ -75,9 +75,9 @@ package practice.unit2_linkList;
  * }
  */
 public class Leetcode25_reverseKGroup {
-/*    public ListNode reverseKGroup(ListNode head, int k) {
+   /* public ListNode reverseKGroup(ListNode head, int k) {
 
+        return head;
     }*/
 }
-//leetcode submit region end(Prohibit modification and deletion)
 
