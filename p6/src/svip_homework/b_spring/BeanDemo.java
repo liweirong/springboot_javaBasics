@@ -16,6 +16,7 @@ public class BeanDemo {
         Object object = new FactoryBeanDemo().getObject();
         Object object2 = new BeanFactoryDemo().getBean("aa");
         System.out.println(object);
+        System.out.println(object2);
     }
 }
 
@@ -41,7 +42,7 @@ class BeanFactoryDemo implements BeanFactory{
 
     @Override
     public Object getBean(String s) throws BeansException {
-        return null;
+        return s;
     }
 
     @Override

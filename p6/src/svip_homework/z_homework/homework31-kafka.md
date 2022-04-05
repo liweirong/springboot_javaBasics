@@ -21,7 +21,8 @@ follower才可以在leader宕机之后被选举为新的leader，因为在这个
 2 Kafka消费者消费消息是pull还是push，为什么？（语音作业）<br>
 
 ```text
-
+pull
+本身就是面向大数据的，如果是push的话压力太大
 ```
 
 3 什么是Kafka的Rebalance,什么时候触发？（语音作业）<br>
