@@ -58,3 +58,10 @@ redo log,undo log是逻辑日志 、bin log是物理日志，记录具体的sql
     4 redo log状态变为commit
 
 ```
+
+请描述下一条写sql的执行流程（语音作业）<br>
+
+```text
+1 sql发送到server端，进行相关权限校验
+2 不是主键查询和更新的话 从buffer pool中查询是否有缓存页，如果有更改写入
+```

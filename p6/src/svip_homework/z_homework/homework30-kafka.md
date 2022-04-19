@@ -14,6 +14,7 @@
 ```text
 大致架构有
 prodctor comsumer broker patition 副本
+partition（分区）是物理上的概念，每个partition对应于一个log文件
 ```
 
 3 kafka为什么会有快的读写速度

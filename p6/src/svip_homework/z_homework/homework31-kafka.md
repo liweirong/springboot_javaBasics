@@ -28,7 +28,15 @@ pull
 3 什么是Kafka的Rebalance,什么时候触发？（语音作业）<br>
 
 ```text
-
+当消费者新增或减少、队列增加或减少时能否自动重平衡
+Kafka的重平衡其实包含两个非常重要的阶段：消费组加入阶段(PreparingRebalance)、队列负载(CompletingRebalance).
+PreparingRebalance：此阶段是消费者陆续加入消费组，该组第一个加入的消费者被推举为Leader，当该组所有已知memberId的消费者全部加入后，状态驱动到CompletingRebalance。
+CompletingRebalance：PreparingRebalance状态完成后，如果消费者被推举为Leader，Leader会采用该消费组中都支持的队列负载算法进行队列分布，然后将结果回报给组协调器；如果消费者的角色为非Leader，会向组协调器发送同步队列分区算法，组协调器会将Leader节点分配的结果分配给消费者。
+消费组如果在进行重平衡操作，将会暂停消息消费，频繁的重平衡会导致队列消息消费的速度受到极大的影响。
+与重平衡相关的消费端参数：
+max.poll.interval.ms    两次poll方法调用的最大间隔时间，单位毫秒，默认为5分钟。如果消费端在该间隔内没有发起poll操作，该消费者将被剔除，触发重平衡，将该消费者分配的队列分配给其他消费者。
+session.timeout.ms      消费者与broker的心跳超时时间,默认10s，broker在指定时间内没有收到心跳请求，broker端将会将该消费者移出，并触发重平衡。
+heartbeat.interval.ms   心跳间隔时间，消费者会以该频率向broker发送心跳，默认为3s，主要是确保session不会失效。
 ```
 
 4 Kafka的分区策略是什么样的？（语音作业）<br>

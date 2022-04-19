@@ -55,7 +55,7 @@ innodb的行锁是通过锁住索引来实现的
     RR（Repeatable Read） 可重复读   - [幻读(innodb解决了)]
         普通的select的快照读 底层使用MVCC实现
         加锁的select或者update delete使用的是当前读，底层使用record lock、gap lock、next ky lock
-    Serializable 串行话
+    Serializable 串行化
         所有select语句都会隐式转换为select in share mode共享锁阻塞其他事务的修改，会和update、delete互斥
 
 解决读一致性的问题，总体由两大类方案,innodb采用mvcc解决了RR隔离级别的幻读问题
