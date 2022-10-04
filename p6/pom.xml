@@ -22,7 +22,7 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.19.1</version>
+            <version>3.19.6</version>
         </dependency>
         <!--客户端需要引入 Transport 模块来与 Sentinel 控制台进行通信-->
         <dependency>
