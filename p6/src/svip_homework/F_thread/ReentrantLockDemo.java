@@ -1,7 +1,7 @@
 package svip_homework.F_thread;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @author iris
@@ -10,10 +10,18 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ReentrantLockDemo {
 
     private static ReentrantLock reentrantLock = new ReentrantLock();
+    private static ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+    private static ReentrantReadWriteLock.ReadLock readLock =   reentrantReadWriteLock.readLock();
+    private static ReentrantReadWriteLock.WriteLock writeLock =   reentrantReadWriteLock.writeLock();
     private static ReentrantLock noFairReentrantLock = new ReentrantLock(true);
 
     public static void main(String[] args) {
         // 使用很简单，如下，注意一定要finally释放锁
+        try {
+            writeLock.lock();
+        }finally {
+            writeLock.unlock();
+        }
         try {
             reentrantLock.lock();
         } finally {
