@@ -9,7 +9,8 @@ nacos的discovery包里的spring.factories自动装配了NacosServiceRegistryAut
 AbstractAutoServiceRegistration实现了ApplicationListener事件，最终会调用onApplicationEvent()
 
 临时节点、持久化节点
-Nacos服务端在15秒内如果没收到客户端的心跳请求，会将该实例设置为不健康，在30秒内没收到心跳，会将这个临时实例摘除。永久实例不会摘除
+Nacos服务端在15秒内如果没收到客户端的心跳请求，会将该实例设置为不健康，在30秒内没收到心跳，会将这个临时实例摘除。
+永久实例不会摘除
 默认都是临时节点
 
 服务发现

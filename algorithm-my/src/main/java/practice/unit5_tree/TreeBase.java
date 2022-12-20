@@ -1,6 +1,7 @@
 package practice.unit5_tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -52,19 +53,76 @@ public class TreeBase {
      */
     private static List<Integer> preTree(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> stark = new Stack<>();
         TreeNode node = root;
-        while (!stack.isEmpty() || node != null) {
-            //
+        // 先序时 中 左 右  入栈则是 右 左 中
+        while (!stark.empty() || node != null) {
+            // 一直拿到最
             while (node != null) {
                 result.add(node.val);
-                stack.push(node);
+                stark.push(node);
                 node = node.left;
             }
-            node = stack.pop();
+            node = stark.pop();
+            // 弹出最左节点判断有没有右节点
             node = node.right;
         }
+
         return result;
+    }
+
+    /**
+     * 后续遍历
+     *
+     * @param root
+     * @return
+     */
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        return result;
+    }
+
+    /**
+     * 102 层序遍历
+     * <p>
+     * 树结构如下
+     * 3
+     * / \
+     * 9 20
+     * / \
+     * 15 7
+     * 应输出结果 [3, 9, 20, 15, 7]
+     */
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res  = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+
+        LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+        //将根节点放⼊队列中，然后不断遍历队列
+        queue.add(root);
+        //有多少元素执⾏多少次
+
+        while (!queue.isEmpty()) {
+            List<Integer> curFloor = new ArrayList<Integer>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                // 操作完要移除本层 并加入当前层数组
+                TreeNode treeNode = queue.remove();
+                curFloor.add(treeNode.val);
+
+                // 准备下一层
+                if (treeNode.left != null) {
+                    queue.add(treeNode.left);
+                }
+                if (treeNode.right != null) {
+                    queue.add(treeNode.right);
+                }
+            }
+            res.add(curFloor);
+        }
+        return res;
     }
 }
 

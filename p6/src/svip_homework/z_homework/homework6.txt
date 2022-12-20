@@ -8,6 +8,10 @@ ClassPathXmlApplicationContext factory = new ClassPathXmlApplicationContext("bea
 spring的启动是建筑在servlet容器之上的，所有web工程的初始位置就是web.xml,它配置了servlet的上下文（context）和监听器（Listener）;
 web.xml中会提供有contextLoaderListener。在web容器启动时，会触发容器初始化事件
 
+会调用run方法，创建环境设置spring容器，其中包含refresh方法，
+完成配置类解析，各种beanFactoryPostProcess和beanPostProcessor注册，
+web内置容器构造，国际化配置初始化等,refresh调用了父类AbstractApplicationContext的refresh方法如下。
+
 
 
 

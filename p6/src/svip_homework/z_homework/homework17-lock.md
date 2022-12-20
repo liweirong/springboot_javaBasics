@@ -25,7 +25,8 @@ AQS是由一个volatile修饰的state和监控这个state的双向链构成，�
 通过tryAcquire（）、compareAndSetSate(）来获取锁；
 
 AQS只是一个框架，具体资源的获取/释放方式交由自定义同步器去实现，AQS这里只定义了一个接口，具体资源的获取交由自定义同步器去实现（通过state的get/set/CAS）。
-至于能不能重入，能不能阻塞，那就看具体的自定义同步器怎么去设计了;例如ReentrantLock的AQS的两个实现类能实现公平和非公平锁
+至于能不能重入，能不能阻塞，那就看具体的自定义同步器怎么去设计了;
+例如ReentrantLock的AQS的两个实现类能实现公平和非公平锁
 
 ```
 
