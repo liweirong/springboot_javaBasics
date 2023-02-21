@@ -1,5 +1,6 @@
-package com.iris.network;
+package com.iris.network.estateLock;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.util.encoders.Base64;
 
 import javax.crypto.*;
@@ -17,44 +18,44 @@ import java.security.SecureRandom;
  */
 public class AesUtils {
     /**
+     * @param password 加密密码
      * @Author liujun
      * @Description:
      * @params: * @param content 需要加密的内容
-     * @param password  加密密码
+     * @params: * @param password 密钥
      * @Date 上午 9:41 2017/12/26 0026
      */
 
-    public static String encrypt(String content, String password) {
-        if(password.length()<16) {
-            password = password + "0000000000000000".substring(0, 16-password.length());
+    public static String encrypt(String content, String deviceUUID) {
+        if (deviceUUID.length() < 16) {
+            deviceUUID = deviceUUID + "0000000000000000".substring(0, 16 - deviceUUID.length());
+        } else if (deviceUUID.length() > 16) {
+            deviceUUID = deviceUUID.substring(0, 16);
         }
-        else if(password.length()>16) {
-            password = password.substring(0, 16);
-        }
-
-        return bytes2HexString(encryptAES(content.getBytes(), password.getBytes()));
+        return bytes2HexString(encryptAES(content.getBytes(), deviceUUID.getBytes()));
     }
 
 
     /**
+     * @param password 解密密钥
      * @Author liujun
      * @Description:
      * @params: * @param content 待解密内容
-     * @param password 解密密钥
      * @Date 上午 9:40 2017/12/26 0026
      */
     public static String decrypt(String content, String password) {
-        System.out.println(password.length());
-        if(password.length()<16) {
-            password = password + "0000000000000000".substring(0, 16-password.length());
+        if (StringUtils.isEmpty(content)) {
+            return null;
         }
-        else if(password.length()>16) {
+//        System.out.println(password.length());
+        if (password.length() < 16) {
+            password = password + "0000000000000000".substring(0, 16 - password.length());
+        } else if (password.length() > 16) {
             password = password.substring(0, 16);
         }
 
         return new String(decryptAES(hexString2Bytes(content), password.getBytes()));
     }
-
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -122,7 +123,7 @@ public class AesUtils {
 //        } catch (BadPaddingException e) {
 //            log.error(e);
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
@@ -139,10 +140,10 @@ public class AesUtils {
     /**
      * AES 解密 Base64 编码密文
      *
-     * @param data           Base64 编码密文
-     * @param keyString      16、24、32 字节秘钥
-     //* @param transformation 转变
-     //* @param iv             初始化向量
+     * @param data      Base64 编码密文
+     * @param keyString 16、24、32 字节秘钥
+     *                  //* @param transformation 转变
+     *                  //* @param iv             初始化向量
      * @return 明文
      */
     public static byte[] decryptBase64AES(final byte[] data,
@@ -155,10 +156,10 @@ public class AesUtils {
     /**
      * AES 加密后转为 Base64 编码
      *
-     * @param data           明文
-     * @param keyString      16、24、32 字节秘钥
-     //* @param transformation 转变
-    // * @param iv             初始化向量
+     * @param data      明文
+     * @param keyString 16、24、32 字节秘钥
+     *                  //* @param transformation 转变
+     *                  // * @param iv             初始化向量
      * @return Base64 密文
      */
     public static byte[] encryptAES2Base64(final byte[] data,
@@ -228,6 +229,7 @@ public class AesUtils {
 
     /**
      * 解密
+     *
      * @return 解密后的字符串
      */
     public static String Decrypt256(String src, String key) {
@@ -239,13 +241,12 @@ public class AesUtils {
             }
 
             // 密钥补位
-            int plus= 32-key.length();
+            int plus = 32 - key.length();
             byte[] data = key.getBytes("utf-8");
             byte[] raw = new byte[32];
 
-            byte[] plusbyte={ 0x08, 0x08, 0x04, 0x0b, 0x02, 0x0f, 0x0b, 0x0c,0x01, 0x03, 0x09, 0x07, 0x0c, 0x03, 0x07, 0x0a, 0x04, 0x0f,0x06, 0x0f, 0x0e, 0x09, 0x05, 0x01, 0x0a, 0x0a, 0x01, 0x09,0x06, 0x07, 0x09, 0x0d };
-            for(int i=0;i<32;i++)
-            {
+            byte[] plusbyte = {0x08, 0x08, 0x04, 0x0b, 0x02, 0x0f, 0x0b, 0x0c, 0x01, 0x03, 0x09, 0x07, 0x0c, 0x03, 0x07, 0x0a, 0x04, 0x0f, 0x06, 0x0f, 0x0e, 0x09, 0x05, 0x01, 0x0a, 0x0a, 0x01, 0x09, 0x06, 0x07, 0x09, 0x0d};
+            for (int i = 0; i < 32; i++) {
                 if (data.length > i)
                     raw[i] = data[i];
                 else
@@ -261,7 +262,7 @@ public class AesUtils {
 
             try {
                 byte[] original = cipher.doFinal(encrypted1);
-                String originalString = new String(original,"utf-8");
+                String originalString = new String(original, "utf-8");
                 return originalString;
             } catch (Exception e) {
                 System.out.println(e.toString());
@@ -296,8 +297,7 @@ public class AesUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(encrypt("419002","09c92b04cc4eab82cdbcdc70e9394e39"));
-        System.out.println(decrypt("E1CD5ED24DF67AF10511E36D816149C1","09c92b04cc4eab82cdbcdc70e9394e39"));
-
+        System.out.println(encrypt("230107", "c44e01518194bc65a7385b0a9f08998f"));
+//        System.out.println(decrypt("E1CD5ED24DF67AF10511E36D816149C1", "09c92b04cc4eab82cdbcdc70e9394e39"));
     }
 }

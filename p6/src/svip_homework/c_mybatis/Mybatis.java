@@ -1,6 +1,5 @@
 package svip_homework.c_mybatis;
 
-import org.apache.commons.lang3.builder.ToStringExclude;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import svip_homework.b_spring.StarterProcess;
 
 /**
  * @author iris

@@ -1,36 +1,31 @@
-package com.iris.network;
+package com.iris.network.estateLock;
 
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Map;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Maps;
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.util.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -77,11 +72,11 @@ public class HttpClientUtils {
         client = HttpClients.custom().setConnectionManager(cm).build();
     }
 
-    public static String postParameters(String url, String parameterStr) throws Exception {
+    public static JSONObject postParameters(String url, String parameterStr) throws Exception {
         return post(url, parameterStr, "application/x-www-form-urlencoded", charset, connTimeout, readTimeout);
     }
 
-    public static String postParameters(String url, String parameterStr, String charset, Integer connTimeout, Integer readTimeout) throws ConnectTimeoutException, SocketTimeoutException, Exception {
+    public static JSONObject postParameters(String url, String parameterStr, String charset, Integer connTimeout, Integer readTimeout) throws ConnectTimeoutException, SocketTimeoutException, Exception {
         return post(url, parameterStr, "application/x-www-form-urlencoded", charset, connTimeout, readTimeout);
     }
 
@@ -113,15 +108,13 @@ public class HttpClientUtils {
      * @param connTimeout 建立链接超时时间,毫秒.
      * @param readTimeout 响应超时时间,毫秒.
      * @return ResponseBody, 使用指定的字符集编码.
-     * @throws ConnectTimeoutException 建立链接超时异常
-     * @throws SocketTimeoutException  响应超时
      * @throws Exception
      */
-    public static String post(String url, String body, String mimeType, String charset, Integer connTimeout, Integer readTimeout)
-            throws ConnectTimeoutException, SocketTimeoutException, Exception {
+    public static JSONObject post(String url, String body, String mimeType,
+                                  String charset, Integer connTimeout, Integer readTimeout) {
         HttpClient client = null;
         HttpPost post = new HttpPost(url);
-        String result;
+        String result = null;
         try {
             if (StringUtils.isNotBlank(body)) {
                 HttpEntity entity = new StringEntity(body, ContentType.create(mimeType, charset));
@@ -137,8 +130,8 @@ public class HttpClientUtils {
             }
             post.setConfig(customReqConf.build());
             post.setHeader("t", System.currentTimeMillis() + "");
-            post.setHeader("key", testMasterKey);
-            post.setHeader("sign", DigestUtils.md5DigestAsHex((testAppid + testSecret).getBytes()));
+            post.setHeader("key", masterKey);
+            post.setHeader("sign", DigestUtils.md5DigestAsHex((appid + secret).getBytes()));
             post.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
             HttpResponse res;
@@ -154,13 +147,19 @@ public class HttpClientUtils {
 
             System.out.println("调用:" + post.getURI());
             result = IOUtils.toString(res.getEntity().getContent(), charset);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             post.releaseConnection();
             if (url.startsWith("https") && client instanceof CloseableHttpClient) {
-                ((CloseableHttpClient) client).close();
+                try {
+                    ((CloseableHttpClient) client).close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        return result;
+        return JSON.parseObject(result);
     }
 
 
@@ -343,9 +342,12 @@ public class HttpClientUtils {
     private static String secret = "9ba1465075e34cdb80d945f5d6f5b38a";
     private static String masterKey = "77a34f924ad54453a3d34c5a14b3c9fa";
     private static String categoryId = "998c6c1be5374bb18b8a967e90b5af52";
-    private static String deviceUUID = "427444ca51ea5cc9222fa04aa28a2b00";
+
+    // 07号楼	3层	302
+    private static String deviceUUID = "c44e01518194bc65a7385b0a9f08998f";
+    private static String lockUserId = "c44e01518194bc65a7385b0a9f08998f";
     private static String mac = "04:78:63:D7:1F:A1".replaceAll(":", "");
-    private static String mac2 = "B0:F8:93:70:E0:92".replaceAll(":", "");
+//    private static String mac2 = "B0:F8:93:70:E0:92".replaceAll(":", "");
     // 1602室 B0F89370F237
     // 7栋1601室。B0F89370FA6A
     /**
@@ -356,43 +358,53 @@ public class HttpClientUtils {
      *
      * @param args
      */
-    private static String testAppid = "9262b5c5381b425ab50023d1db1e8f13";
-    private static String testSecret = "0dfdf065d17844f6b51720385c7c8167";
-    private static String testMasterKey = "4e95530d9f144690af778cb08b7736d2";
-    private static String testCategoryId = "b215fa53021f427b9ce78303438e53c4";
-    private static String testDeviceUUid = "427444ca51ea5cc9222fa04aa28a2b00";
-    private static String testDeviceUUid1 = "427444ca51ea5cc9";
+//    private static String testAppid = "9262b5c5381b425ab50023d1db1e8f13";
+//    private static String testSecret = "0dfdf065d17844f6b51720385c7c8167";
+//    private static String testMasterKey = "4e95530d9f144690af778cb08b7736d2";
+//    private static String testCategoryId = "b215fa53021f427b9ce78303438e53c4";
+//    private static String testDeviceUUid = "427444ca51ea5cc9222fa04aa28a2b00";
+//    private static String testDeviceUUid1 = "427444ca51ea5cc9";
+    // 测试环境域名
+//    private static String testDomain = "https://test2.fcsmartlock.com:3003";
 
-    public static void main(String[] args) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
-String pass = "1014BF8DBD632A33A3617309AA24A273";
-        System.out.println(AesUtils.decrypt(pass,deviceUUID));
+// 正式环境域名：
+    private static String shengchaDomain = "https://open.fcsmartlock.com";
+    private static final String modifyUrl = "/open/api/wifi_device/modifyPassword/v1";
+    // 删除门锁用户
+    private static final String delLockUser = "/open/api/wifi_device/delLockUser/v1";
+    private static final String GET_LOCK_USER_LIST = "/open/api/device/lockUsers/getLockUserList/v1";
+    private static Boolean re = true;
 
-        System.out.println("1111111:"+AesUtils.encrypt("1111111",testDeviceUUid1));
-        System.out.println("2222222:"+AesUtils.encrypt("2222222",testDeviceUUid1));
-        System.out.println("testsign:" + DigestUtils.md5DigestAsHex((testAppid + testSecret).getBytes()));
-        System.out.println("sign:" + DigestUtils.md5DigestAsHex((appid + secret).getBytes()));
+    static Map<String, String> map = Maps.newHashMap();
 
-        // 测试环境域名
-        String testDomain = "https://test2.fcsmartlock.com:3003";
-        // 正式环境域名：
-        String shengchanDomain = "https://open.fcsmartlock.com";
+    static {
+//        tempPassword/ lockUserId
+        map.put("AB2AA0BB3BFF159D0820AE1B5154A831", "0d2d9540dd244bd69d9c86bf489ebfac");
+    }
 
-        String addDevice = "/open/api/wifi_device/addDevice/v1";
-        String addDeviceParam = "appId=" + appid + "&categoryId=" + categoryId + "&mac=" + mac;
-        String testAddDeviceParam = "appId=" + testAppid + "&categoryId=" + testCategoryId + "&mac=" + mac;
-        String addDeviceUrl = shengchanDomain + addDevice + "?" + addDeviceParam;
-        try {
-//            String str = post(addDeviceUrl, null, "application/x-www-form-urlencoded", charset, 10000, 10000);
-            String str2 = post(testDomain + addDevice, testAddDeviceParam, "application/x-www-form-urlencoded", charset, 10000, 10000);
-//            System.out.println(str);
-            System.out.println(str2);
-        } catch (ConnectTimeoutException e) {
-            e.printStackTrace();
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws Exception {
+//        String pass = "1014BF8DBD632A33A3617309AA24A273";
+        map.forEach((temp, locksUserId) -> {
+            System.out.println("locksUserId" + locksUserId + " : " + AesUtils.decrypt(temp, deviceUUID));
+        });
+
+//        System.out.println("sign:" + DigestUtils.md5DigestAsHex((appid + secret).getBytes()));
+
+        String GET_LOCK_USER_LIS = shengchaDomain + GET_LOCK_USER_LIST + "?appId=" + appid + "&deviceUUID=" + deviceUUID + "&userType=2&rows=100";
+        JSONObject userList = post(GET_LOCK_USER_LIS, null, "application/x-www-form-urlencoded", charset, 10000, 10000);
+        // https://open.fcsmartlock.com/open/api/device/lockUsers/getLockUserList/v1?appId=a22704a7c855471eb782b8ee3bacebc7&deviceUUID=c44e01518194bc65a7385b0a9f08998f&userType=2&rows=100
+        System.out.println(GET_LOCK_USER_LIS + "\n userList:------" + userList);
+        if (re) {
+            return;
         }
+
+        String addDeviceParam = "/appId=" + appid + "&deviceUUID=" + deviceUUID + "&id=" + mac;
+//        String testAddDeviceParam = "appId=" + testAppid + "&categoryId=" + testCategoryId + "&mac=" + mac;
+        String deleteLockUser = shengchaDomain + delLockUser + "?" + addDeviceParam;
+        JSONObject str = post(deleteLockUser, null, "application/x-www-form-urlencoded", charset, 10000, 10000);
+//            String str2 = post(testDomain + addDevice, testAddDeviceParam, "application/x-www-form-urlencoded", charset, 10000, 10000);
+        System.out.println(str);
+//            System.out.println(str2);
     }
 
     //data为要加密的数据，secret为加密的密码（解密时也需要用到该密码）。
