@@ -14,7 +14,7 @@
 1 见同级目录下png文件及pos文件
 2
 一级缓存（singletonObjects）单例池放的是创建成熟的bean
-三级缓存（singletonFactories）放的是用于获取Bean的工厂类 创建的工厂
+三级缓存（singletonFactories）放的是用于获取Bean的工厂类 创建的工厂 因为循环依赖不常见，没循环依赖三级缓存没用，直接放工厂
 二级缓存主要用于循环依赖发生时存放的提前暴露的对象
 3
 
