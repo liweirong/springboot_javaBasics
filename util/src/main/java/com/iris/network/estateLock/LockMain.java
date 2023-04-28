@@ -73,6 +73,11 @@ public class LockMain {
     public static void main(String[] args) throws Exception {
         Map<String, List<LockInfoResp>> result = Maps.newLinkedHashMap();
         LockInfo.map.forEach((address, deviceUUID) -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             LockService lockService = new LockServiceImpl();
             LockUserListResponseVO lockUserList = lockService.getLockUserList(deviceUUID);
 //            System.out.println("#####" + JSONObject.toJSONString(lockUserList));
@@ -159,7 +164,7 @@ public class LockMain {
         System.out.println("门锁缺失3的数量：" + (result.size() - sumthree.size()));
 
         System.out.println("======================================");
-//        sqlList.forEach(System.out::println);
+        sqlList.forEach(System.out::println);
     }
 
 
