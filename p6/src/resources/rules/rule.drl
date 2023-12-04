@@ -1,0 +1,138 @@
+//当前规则文件用于计算个人所得税
+package calculation
+
+import drools.Calculation
+ 
+/**
+    当前规则文件中的规划主要分为三类
+        1、计算应纳税所得额
+        2、设置税率、速算扣除数
+        3、计算税后工资
+*/
+ 
+//计算应缴税所得额
+rule "计算应缴纳所得额"
+    salience 100
+    date-effective "2011-09-01"
+    no-loop true
+    when
+        $cal:Calculation(wage > 0)
+    then
+        // 租房1500 五险一金
+        double wageMore = $cal.getWage() - 5000 - 1500 - 0.195*$cal.getWage();
+        $cal.setWageMore(wageMore);
+//        $cal.setTotal($cal.getTotal()+wageMore);
+        update($cal)
+end
+
+     /**
+     累积收入扣税
+      * 1级：不超过3.6万元的，3%
+      * 2级：超过3.6万元至14.4万元的部分，10%
+      * 3级：超过14.4万元至30万元的部分，20%
+      * 4级：超过30万元至42万元的部分，25%
+      * 5级：超过42万元至66万元的部分，30%
+      * 6级：超过66万元至96万元的部分，35%
+      * 7级：超过96万元的部分，45%
+      */
+//设置税率、速算扣除数
+rule "设置税率,应纳税所得额<=36000"
+    salience 3
+    no-loop true
+    when
+        $cal:Calculation(total <= 36000)
+    then
+        $cal.setCess(0.03); //税率
+        $cal.setPreMinus(0); //速算扣除数
+        update($cal)
+ end
+ 
+ //设置税率、速算扣除数
+ rule "设置税率,应纳税所得额在36000至144000之间"
+     salience 2
+     no-loop true
+     activation-group "SETCess_Group"
+     when
+         $cal:Calculation(total >  36000 && total <= 144000 )
+     then
+         $cal.setCess(0.1); //税率
+         $cal.setPreMinus(2520); //速算扣除数
+         update($cal)
+  end
+
+ // 3级：超过14.4万元至30万元的部分，20%
+  rule "个人所得税：设置税率-->>应纳税所得额在4500志9000之间"
+      salience 2
+      no-loop true
+      activation-group "SETCess_Group"
+      when
+          $cal : Calculation(total >  144000 && total <= 300000)
+      then
+          $cal.setCess(0.2);
+          $cal.setPreMinus(16920);
+          update($cal);
+  end
+  //  4级：超过30万元至42万元的部分，25%
+  rule "个人所得税：设置税率-->>应纳税所得额在300000 - 420000之间"
+      salience 2
+      no-loop true
+      activation-group "SETCess_Group"
+      when
+          $cal : Calculation(total > 300000 && total <= 420000)
+      then
+          $cal.setCess(0.25);
+          $cal.setPreMinus(31920);
+          update($cal);
+  end
+ 
+  rule "个人所得税：设置税率-->>应纳税所得额在35000至55000之间"
+      salience 2
+      no-loop true
+      activation-group "SETCess_Group"
+      when
+          $cal : Calculation(wageMore > 35000 && wageMore <= 55000)
+      then
+          $cal.setCess(0.3);
+          $cal.setPreMinus(2755);
+          update($cal);
+  end
+ 
+  rule "个人所得税：设置税率-->>应纳税所得额在55000至80000之间"
+      salience 2
+      no-loop true
+      activation-group "SETCess_Group"
+      when
+          $cal : Calculation(wageMore > 55000 && wageMore <= 80000)
+      then
+          $cal.setCess(0.35);
+          $cal.setPreMinus(5505);
+          update($cal);
+  end
+ 
+  rule "个人所得税：设置税率-->>应纳税所得额在80000以上"
+      salience 2
+      no-loop true
+      activation-group "SETCess_Group"
+      when
+          $cal : Calculation(wageMore > 80000)
+      then
+          $cal.setCess(0.45);
+          $cal.setPreMinus(13505);
+          update($cal);
+  end
+ 
+  rule "个人所得税：计算税后工资"
+      salience 1
+      when
+          $cal : Calculation(wage > 0 && wageMore > 0 && wageMore > 0 && cess > 0)
+      then
+          $cal.setWageMinus($cal.getWageMore()* $cal.getCess()- $cal.getPreMinus());
+          $cal.setActualWage($cal.getWage()-$cal.getWageMinus());
+ 
+          System.out.println("-----税前工资："+$cal.getWage());
+          System.out.println("-----应纳税所得额："+$cal.getWageMore());
+          System.out.println("-----税率：" + $cal.getCess());
+          System.out.println("-----速算扣除数：" + $cal.getPreMinus());
+          System.out.println("-----扣税额：" + $cal.getWageMinus());
+          System.out.println("-----税后工资：" + $cal.getActualWage());
+  end

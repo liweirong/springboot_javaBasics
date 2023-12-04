@@ -11,6 +11,7 @@ ThreadLocal是一个本地线程副本变量工具类。主要用于将私有线
 
 1 请画出ThreadLocal结构图
 
+
 ```text
     Thread.class
     ThreadLocal.ThreadLocalMap threadLocals = null;

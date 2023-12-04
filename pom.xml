@@ -6,6 +6,7 @@
     <modules>
         <module>basics</module>
         <module>springboot-mybatis</module>
+        <module>module</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

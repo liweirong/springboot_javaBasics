@@ -17,6 +17,7 @@
 2 线程池的核心参数有哪些，分别表示什么意思?（语音作业）
 
 ```text
+
 七大核心参数
 public ThreadPoolExecutor(int corePoolSize, // 核心线程数
 int maximumPoolSize, // 最大线程数

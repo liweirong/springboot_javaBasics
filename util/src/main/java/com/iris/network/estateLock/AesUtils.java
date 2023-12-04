@@ -297,13 +297,7 @@ public class AesUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(encrypt("230228", "515a20a721fc639cce700a1bf19b2fd7"));
-        System.out.println(encrypt("230228", "3be86c3eb7bece4b8cd1e526875f5841"));
-        System.out.println(encrypt("230228", "e0a0fc6757aeb539abc5d49eae8843de"));
-        System.out.println(encrypt("230228", "9d71a35f6b4a808ed0ed0d7ea0bc816f"));
-        System.out.println(encrypt("230228", "cabcdc6fd539281f531a86cede52e9fa"));
-        System.out.println(encrypt("230228", "bedfb1ce812e8001270b170979b08999"));
-        System.out.println(encrypt("230228", "b38350ee29ee2187670e762f91df3ff4"));
+        System.out.println(encrypt("230228", "f3dd0ad7fcb94dbb915ab9caa4396991"));
 //        System.out.println(decrypt("E769EE2324CC68B9784AEC98AC24EEED", "c44e01518194bc65a7385b0a9f08998f"));
     }
 }
