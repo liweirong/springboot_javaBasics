@@ -50,6 +50,7 @@ public class DroolsApplication {
         for (int i = 1; i <= 12; i++) {
             Calculation calculation = new Calculation();
             calculation.setWage(base);
+            calculation.setTotal(total);
             KieSession session = kieBase.newKieSession();   //获得session
             session.insert(calculation);    //加入到规则内存
             session.fireAllRules();         //启动所有规则
@@ -57,6 +58,7 @@ public class DroolsApplication {
             //返回经历过规则的calculation
             resultMap.put(i, calculation.getActualWage());
             total += calculation.getActualWage();
+            calculation.setTotal(total);
         }
         return resultMap;
     }

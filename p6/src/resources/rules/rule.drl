@@ -19,7 +19,7 @@ rule "计算应缴纳所得额"
         $cal:Calculation(wage > 0)
     then
         // 租房1500 五险一金
-        double wageMore = $cal.getWage() - 5000 - 1500 - 0.195*$cal.getWage();
+        double wageMore = $cal.getWage() - 5000 - 1500 - 0.212*$cal.getWage();
         $cal.setWageMore(wageMore);
 //        $cal.setTotal($cal.getTotal()+wageMore);
         update($cal)
@@ -127,7 +127,7 @@ rule "设置税率,应纳税所得额<=36000"
           $cal : Calculation(wage > 0 && wageMore > 0 && wageMore > 0 && cess > 0)
       then
           $cal.setWageMinus($cal.getWageMore()* $cal.getCess()- $cal.getPreMinus());
-          $cal.setActualWage($cal.getWage()-$cal.getWageMinus());
+          $cal.setActualWage($cal.getWage()-$cal.getWageMinus()-0.212*$cal.getWage());
  
           System.out.println("-----税前工资："+$cal.getWage());
           System.out.println("-----应纳税所得额："+$cal.getWageMore());
